@@ -2,11 +2,12 @@
   "name": "saas-pages-model",
   "version": "0.1.0",
   "private": true,
+  "main": "umd/model.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "buildUmd": "vue-cli-service build --target lib --name HelloWorld --dest lib/hellow-world packages/HelloWorld/index.js"
+    "buildUmd": "node buildUmd-webpack.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
