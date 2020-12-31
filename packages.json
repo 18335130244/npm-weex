@@ -1,0 +1,17 @@
+{
+  "HelloWorld": {
+    "modelName": "hello 演示模块",
+    "version": "1.0.0",
+    "install": true
+  },
+  "feedback": {
+    "modelName": "反馈意见模块",
+    "version": "1.0.0",
+    "install": true
+  },
+  "feedback1": {
+    "modelName": "反馈意见模块",
+    "version": "1.0.0",
+    "install": true
+  }
+}
