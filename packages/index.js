@@ -1,41 +1,43 @@
+/** 导入自建库内容 */
+import feedback from './feedback';
+import feedback1 from './feedback1';
 import HelloWorld from './HelloWorld';
 
-// 将引入的组件模块存储，方便循环注册所有组件
+
+/** 引入的组件模块 */
 const components = {
-    HelloWorld ,
+    feedback,
+    feedback1,
+    HelloWorld,
 };
 
-const install = (Vue,options)=>{
+/** 提供所有组件支持对浏览器接入 */
+function install(Vue,options){
     if (install.installed) return;
+    // 当前组件是否已经被安装
     install.installed = true
-    console.log(options)
     for (const key in components) {
-        console.log(components[key]);
         const component = components[key];
         Vue.component(component.name, component)
     }
 }
 
-// 如果是直接引入的
-if (typeof window !== 'undefined' && window.Vue) {
+/** 由浏览器直接导入 */
+if(typeof window !== 'undefined' && window.Vue) {
     install(window.Vue,{})
 }
 
-// 每个组件单独导出时使用
-for(let key in components){
-    components[key].install = (Vue,options)=>{
-        console.log(options)
-        const component = components[key];
-        Vue.component(component.name, component)
-    }
-}
+/** 单独组件导出 */
+export const Afeedback = feedback;
+export const Afeedback1 = feedback1;
+export const AHelloWorld = HelloWorld;
 
-export var AHelloWorld = HelloWorld
 
+/** 提供对 vue 的单组件及 install 安装方法 */
 export default {
-    // 同时导出组件列表
-    ...components,
-    // 使用Vue.use必须具有install方法
-    // https://cn.vuejs.org/v2/api/#Vue-use
+    feedback,
+    feedback1,
+    HelloWorld,
     install,
 }
+

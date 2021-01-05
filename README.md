@@ -30,3 +30,7 @@
     ```text
        npm run buildUmd
     ```
+- ### 启动项目
+    ```
+        npm run dev
+    ```
