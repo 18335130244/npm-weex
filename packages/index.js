@@ -13,6 +13,7 @@ const components = {
 
 /** 提供所有组件支持对浏览器接入 */
 function install(Vue,options){
+    console.log(options)
     if (install.installed) return;
     // 当前组件是否已经被安装
     install.installed = true

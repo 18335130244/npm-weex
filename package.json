@@ -5,8 +5,8 @@
   "main": "umd/model.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "dev": "noe buildDev-webpack.js",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
     "buildUmd": "node buildUmd-webpack.js"
   },
   "dependencies": {

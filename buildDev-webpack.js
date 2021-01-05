@@ -59,23 +59,44 @@ function watchPackagesChange(){
 
 }
 
-/**
- * 循环 配置包是否有变化
- * */
-const pages = require('./packages.json');
-for(let i in pages){
-    let exists = existsDir(`/packages/${i}`,i,pages[i])
-}
-if(packagesTmp.doesNotExist.length){
-    let packagesName = [];
-    packagesTmp.doesNotExist.forEach(item => {packagesName.push(item)})
-    packagesTmp.exist.forEach(item => {packagesName.push(item)})
-    fsDir.hardWriteFile(getDirName('/packages/index.js'),setAllExportsTemplateInner(packagesName))
-}
 
-// 监听文件 packages.json 包文件是否有变化 ， 动态添加文件夹 并创建文件 并加入 版本控制
-// fs.watch(getDirName(`/packages.json`),(event,filename)=>{
-//     console.log(event);
-//     console.log(filename);
-// })
+let isStart = false;
+// 初次执行运行
+init();
+/** 初始化文件并运行 */
+function init(){
+    /**
+     * 循环 配置包是否有变化
+     * */
+    var pages = require('./packages.json');
+    for(let i in pages){
+        existsDir(`/packages/${i}`,i,pages[i])
+    }
+    if(packagesTmp.doesNotExist.length){
+        let packagesName = [];
+        packagesTmp.doesNotExist.forEach(item => {packagesName.push(item)})
+        packagesTmp.exist.forEach(item => {packagesName.push(item)})
+        fsDir.hardWriteFile(getDirName('/packages/index.js'),setAllExportsTemplateInner(packagesName))
+        // 执行完毕
+        isStart = false
+    }
+    CmdSync('npm run serve')
+}
+/** 监听文件 packages.json 包文件是否有变化 ， 动态添加文件夹 并创建文件 并加入 版本控制*/
+function watchFile(filePath){
+    fs.watchFile(filePath, (cur, prv) => {
+        if (filePath) {
+            // 打印出修改时间
+            console.log(`cur.mtime>>${cur.mtime.toLocaleString()}`)
+            console.log(`prv.mtime>>${prv.mtime.toLocaleString()}`)
+            // 根据修改时间判断做下区分，以分辨是否更改
+            if (cur.mtime != prv.mtime){
+                init()
+                console.log(`${filePath}文件发生更新`)
+            }
+        }
+    })
+}
+// watchFile(getDirName(`/packages.json`));
+
 

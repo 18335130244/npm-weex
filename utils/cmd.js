@@ -3,7 +3,8 @@ const { exec , execSync } = require("child_process");
 // 同步构建
 exports.CmdSync =  (cmdCur,cb=()=>{}) => {
     try {
-        execSync(cmdCur, {encoding: 'utf8'});
+        let a = execSync(cmdCur, {encoding: 'utf8'});
+        console.log(a);
         cb()
     } catch (e) {
         // 执行失败
