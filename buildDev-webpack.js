@@ -80,7 +80,7 @@ function init(){
         // 执行完毕
         isStart = false
     }
-    CmdSync('npm run serve')
+    // CmdSync('npm run serve')
 }
 /** 监听文件 packages.json 包文件是否有变化 ， 动态添加文件夹 并创建文件 并加入 版本控制*/
 function watchFile(filePath){
